@@ -1,5 +1,40 @@
-<input type='date' id='dates' min = '2002-01-01' required (change) = 'currencyForDate()'>
-<ul>
-  <li *ngFor = 'let valute of todaysCurrency'>{{valute?.Name}} {{valute?.Value}}</li>
-</ul>
-<p *ngIf = error>Нет данных!</p>
+
+<main>
+  <div class='outer__container'>
+    <div class='inputs__container'>
+      <div>
+        <span>Выберите дату</span>
+        <input type='date' id='dates' min = '2002-01-01' required (change) = 'currencyForDate()'>
+      </div>
+      <div>
+        <span>Название валюты</span>
+        <input type = 'text' (keyup) = 'valuteSearch()' id='search' placeholder = 'Поиск'>
+      </div>
+    </div>
+    <div *ngFor = 'let valute of todaysCurrency' class='valutes__container'>
+      <div *ngIf = 'valute.Name.toLowerCase().includes(inputValue)' class='valute__container'>
+        <div>
+          <span>{{valute?.Name}}</span>
+        </div>
+        <div>
+          <span>Предложение: {{valute?.Value}}</span>
+        </div>
+        <div>
+          <span>Предыдущее закрытие: {{valute?.Previous}}</span>
+        </div>
+      </div>
+    </div>
+    <p *ngIf = error>Нет данных!</p>
+  </div>
+  <div class='news__container'>
+    <div class='news__header'>
+      <p>Новости Бизнеса</p>
+    </div>
+    <div class='news__inner-container'>
+      <div *ngFor = 'let article of news'>
+        <a [href]= 'article.url' target="_blank">{{article.title}}</a>
+        <img [src] = 'hasImg(article)' alt='Изображение прикрепленное к новости'>
+      </div>
+    </div>
+  </div>
+</main>
